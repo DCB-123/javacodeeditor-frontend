@@ -41,15 +41,13 @@ function App() {
     setLoading(true);
     setOutput("");
     try {
-      const response = await axios.post("http://localhost:8081/api/code/run", {
-        code,
-        input,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/code/run`,
+        { code, input }
+      );
 
-      // Debug: log full response data
       console.log("Backend response:", response.data);
 
-      // If output exists in response, show it; else show full response as string for debugging
       if (response.data.output) {
         setOutput(response.data.output);
       } else if (typeof response.data === "string") {
